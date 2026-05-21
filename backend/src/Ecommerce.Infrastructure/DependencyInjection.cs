@@ -1,6 +1,8 @@
 using Ecommerce.Application.Interfaces.Auth;
 using Ecommerce.Application.Interfaces.Persistence;
+using Ecommerce.Application.Interfaces.Payments;
 using Ecommerce.Infrastructure.Authentication;
+using Ecommerce.Infrastructure.ExternalServices;
 using Ecommerce.Infrastructure.Persistence;
 using Ecommerce.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +38,9 @@ public static class DependencyInjection
         });
         services.AddScoped<ICartRepository, CartRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IPaymentProvider, CashOnDeliveryProvider>();
         services.AddScoped<IPasswordHasher, Pbkdf2PasswordHasher>();
         services.AddScoped<ITokenService, JwtTokenService>();
 
