@@ -1,1 +1,25 @@
-<router-outlet />
+<header class="app-header">
+  <a routerLink="/products" class="brand">Ecommerce MVP</a>
+  <nav>
+    <a routerLink="/products" routerLinkActive="active">Catálogo</a>
+    @if (authStore.isAuthenticated()) {
+      <a routerLink="/cart" routerLinkActive="active">Carrito {{ cartStore.count() }}</a>
+      <a routerLink="/orders" routerLinkActive="active">Órdenes</a>
+    }
+    @if (authStore.isAdmin()) {
+      <a routerLink="/admin" routerLinkActive="active">Admin</a>
+    }
+  </nav>
+  <div class="session">
+    @if (authStore.user(); as user) {
+      <span>{{ user.email }}</span>
+      <button type="button" class="ghost" (click)="logout()">Salir</button>
+    } @else {
+      <a routerLink="/login">Login</a>
+    }
+  </div>
+</header>
+
+<main class="app-main">
+  <router-outlet />
+</main>
