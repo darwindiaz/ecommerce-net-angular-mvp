@@ -1,0 +1,37 @@
+# .NET
+bin/
+obj/
+TestResults/
+*.user
+*.suo
+*.rsuser
+*.nupkg
+
+# Angular / Node
+node_modules/
+dist/
+.angular/
+.npm/
+coverage/
+
+# Local configuration
+.env
+.env.*
+appsettings.Development.local.json
+
+# Databases
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# IDEs
+.vs/
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
