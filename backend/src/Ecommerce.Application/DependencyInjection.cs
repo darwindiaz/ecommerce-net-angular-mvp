@@ -1,4 +1,5 @@
 using Ecommerce.Application.Interfaces.Auth;
+using Ecommerce.Application.Interfaces.Cart;
 using Ecommerce.Application.Interfaces.Products;
 using Ecommerce.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ public static class DependencyInjection
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ICartService, CartService>();
         services.AddScoped<IProductService, ProductService>();
 
         return services;
