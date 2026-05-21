@@ -34,6 +34,7 @@ public static class DependencyInjection
                 ? expirationMinutes
                 : 120;
         });
+        services.AddScoped<ICartRepository, CartRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IPasswordHasher, Pbkdf2PasswordHasher>();
