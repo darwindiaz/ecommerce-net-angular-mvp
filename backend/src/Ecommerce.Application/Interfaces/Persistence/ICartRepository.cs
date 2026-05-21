@@ -11,5 +11,6 @@ public interface ICartRepository
     Task AddAsync(DomainCart cart, CancellationToken cancellationToken = default);
     Task AddItemAsync(CartItem item, CancellationToken cancellationToken = default);
     void RemoveItem(CartItem item);
+    void RemoveItems(IEnumerable<CartItem> items);
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

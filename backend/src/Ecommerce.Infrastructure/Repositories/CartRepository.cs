@@ -48,6 +48,11 @@ public class CartRepository(EcommerceDbContext dbContext) : ICartRepository
         dbContext.CartItems.Remove(item);
     }
 
+    public void RemoveItems(IEnumerable<CartItem> items)
+    {
+        dbContext.CartItems.RemoveRange(items);
+    }
+
     public Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         return dbContext.SaveChangesAsync(cancellationToken);
