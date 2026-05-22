@@ -1,5 +1,7 @@
 export type OrderStatus = 'InProcess' | 'Paid' | 'Shipped' | 'Delivered';
 
+export const ORDER_STATUSES: readonly OrderStatus[] = ['InProcess', 'Paid', 'Shipped', 'Delivered'];
+
 export interface OrderItem {
   id: string;
   productId: string;

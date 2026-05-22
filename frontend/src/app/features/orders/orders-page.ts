@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { OrdersApiService } from '../../core/services/orders-api.service';
-import { Order, OrderStatus } from '../../shared/models/order.models';
+import { ORDER_STATUSES, Order, OrderStatus } from '../../shared/models/order.models';
 
 @Component({
   selector: 'app-orders-page',
@@ -37,7 +37,7 @@ import { Order, OrderStatus } from '../../shared/models/order.models';
 })
 export class OrdersPage {
   private readonly ordersApi = inject(OrdersApiService);
-  readonly statuses: OrderStatus[] = ['InProcess', 'Paid', 'Shipped', 'Delivered'];
+  readonly statuses = ORDER_STATUSES;
   readonly orders = signal<Order[]>([]);
 
   constructor() {

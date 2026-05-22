@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Ecommerce.Application.Common.Exceptions;
 using Ecommerce.Application.DTOs.Orders;
 using Ecommerce.Application.Interfaces.Orders;
@@ -11,7 +10,7 @@ namespace Ecommerce.API.Controllers;
 [ApiController]
 [Authorize]
 [Route("api/[controller]")]
-public class OrdersController(IOrderService orderService) : ControllerBase
+public class OrdersController(IOrderService orderService) : ApiControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<OrderResponse>> Create(CancellationToken cancellationToken)
@@ -82,15 +81,4 @@ public class OrdersController(IOrderService orderService) : ControllerBase
         }
     }
 
-    private Guid GetCurrentUserId()
-    {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        if (!Guid.TryParse(userId, out var parsedUserId))
-        {
-            throw new UnauthorizedAccessException("Authenticated user id claim is missing or invalid.");
-        }
-
-        return parsedUserId;
-    }
 }
