@@ -1,6 +1,9 @@
 export type ProductSize = 7 | 8 | 9 | 10;
 export type ProductColor = 'White' | 'Black' | 'Gray';
 
+export const PRODUCT_SIZES: readonly ProductSize[] = [7, 8, 9, 10];
+export const PRODUCT_COLORS: readonly ProductColor[] = ['White', 'Black', 'Gray'];
+
 export interface Product {
   id: string;
   code: string;

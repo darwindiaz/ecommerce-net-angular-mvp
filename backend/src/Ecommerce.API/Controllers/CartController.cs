@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Ecommerce.Application.Common.Exceptions;
 using Ecommerce.Application.DTOs.Cart;
 using Ecommerce.Application.Interfaces.Cart;
@@ -10,7 +9,7 @@ namespace Ecommerce.API.Controllers;
 [ApiController]
 [Authorize]
 [Route("api/[controller]")]
-public class CartController(ICartService cartService) : ControllerBase
+public class CartController(ICartService cartService) : ApiControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<CartResponse>> Get(CancellationToken cancellationToken)
@@ -86,15 +85,4 @@ public class CartController(ICartService cartService) : ControllerBase
         }
     }
 
-    private Guid GetCurrentUserId()
-    {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        if (!Guid.TryParse(userId, out var parsedUserId))
-        {
-            throw new UnauthorizedAccessException("Authenticated user id claim is missing or invalid.");
-        }
-
-        return parsedUserId;
-    }
 }

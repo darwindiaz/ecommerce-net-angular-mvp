@@ -105,9 +105,10 @@ Objetivo:
 
 - Corregir errores.
 - Refactorizar.
-- Completar README.
+- Completar README (Sugerencia detalles y requisitos minimos)
 - Documentar ejecucion local.
 - Ejecutar tests minimos.
+- Crear plan de pruebas.
 
 ## Estrategia para tiempo record
 
@@ -117,4 +118,3 @@ Objetivo:
 - Evitar CQRS completo mientras no aporte valor directo.
 - Usar SQLite para reducir configuracion local.
 - Mantener interfaces en puntos de extension reales: pagos, autenticacion y repositorios.
-

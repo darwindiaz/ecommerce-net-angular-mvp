@@ -6,7 +6,14 @@ import { CartApiService } from '../../core/services/cart-api.service';
 import { ProductsApiService } from '../../core/services/products-api.service';
 import { AuthStore } from '../../core/store/auth.store';
 import { CartStore } from '../../core/store/cart.store';
-import { Product, ProductColor, ProductFilters, ProductSize } from '../../shared/models/product.models';
+import {
+  PRODUCT_COLORS,
+  PRODUCT_SIZES,
+  Product,
+  ProductColor,
+  ProductFilters,
+  ProductSize,
+} from '../../shared/models/product.models';
 
 @Component({
   selector: 'app-products-page',
@@ -71,8 +78,8 @@ export class ProductsPage {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
 
-  readonly sizes: ProductSize[] = [7, 8, 9, 10];
-  readonly colors: ProductColor[] = ['White', 'Black', 'Gray'];
+  readonly sizes = PRODUCT_SIZES;
+  readonly colors = PRODUCT_COLORS;
   readonly products = signal<Product[]>([]);
   readonly error = signal('');
   readonly filtersForm = this.formBuilder.nonNullable.group({

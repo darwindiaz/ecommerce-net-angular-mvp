@@ -3,8 +3,15 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrdersApiService } from '../../core/services/orders-api.service';
 import { ProductsApiService } from '../../core/services/products-api.service';
-import { Order, OrderStatus } from '../../shared/models/order.models';
-import { Product, ProductColor, ProductRequest, ProductSize } from '../../shared/models/product.models';
+import { ORDER_STATUSES, Order, OrderStatus } from '../../shared/models/order.models';
+import {
+  PRODUCT_COLORS,
+  PRODUCT_SIZES,
+  Product,
+  ProductColor,
+  ProductRequest,
+  ProductSize,
+} from '../../shared/models/product.models';
 
 @Component({
   selector: 'app-admin-dashboard-page',
@@ -78,9 +85,9 @@ export class AdminDashboardPage {
   private readonly ordersApi = inject(OrdersApiService);
   private readonly formBuilder = inject(FormBuilder);
 
-  readonly sizes: ProductSize[] = [7, 8, 9, 10];
-  readonly colors: ProductColor[] = ['White', 'Black', 'Gray'];
-  readonly statuses: OrderStatus[] = ['InProcess', 'Paid', 'Shipped', 'Delivered'];
+  readonly sizes = PRODUCT_SIZES;
+  readonly colors = PRODUCT_COLORS;
+  readonly statuses = ORDER_STATUSES;
   readonly products = signal<Product[]>([]);
   readonly orders = signal<Order[]>([]);
   readonly editingProductId = signal<string | null>(null);
