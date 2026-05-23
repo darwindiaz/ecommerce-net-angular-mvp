@@ -26,6 +26,7 @@ public class AuthServiceTests
         var user = await context.Users.SingleAsync(user => user.Email == request.Email.ToLowerInvariant());
 
         Assert.Equal(request.Email.ToLowerInvariant(), response.Email);
+        Assert.Equal(CalculateExpectedAge(request.BirthDate), user.Age);
         Assert.NotEqual(request.Password, user.PasswordHash);
         Assert.NotEmpty(response.Token);
     }
@@ -76,7 +77,7 @@ public class AuthServiceTests
         return new RegisterRequest(
             "Ana",
             "Gomez",
-            28,
+            99,
             new DateOnly(1998, 5, 12),
             "Colombia",
             "Antioquia",
@@ -85,6 +86,14 @@ public class AuthServiceTests
             "Calle 10 # 20-30",
             "ana@example.com",
             "Password123*");
+    }
+
+    private static int CalculateExpectedAge(DateOnly birthDate)
+    {
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+        var age = today.Year - birthDate.Year;
+
+        return birthDate > today.AddYears(-age) ? age - 1 : age;
     }
 
     private class TestTokenService : ITokenService

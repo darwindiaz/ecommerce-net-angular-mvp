@@ -11,6 +11,8 @@ import {
   ProductColor,
   ProductRequest,
   ProductSize,
+  formatProductColor,
+  toProductSizeValue,
 } from '../../shared/models/product.models';
 
 @Component({
@@ -36,7 +38,7 @@ import {
         </select>
         <select formControlName="color">
           @for (color of colors; track color) {
-            <option [value]="color">{{ color }}</option>
+            <option [value]="color">{{ formatColor(color) }}</option>
           }
         </select>
         <input type="number" placeholder="Precio" formControlName="price" />
@@ -88,6 +90,7 @@ export class AdminDashboardPage {
   readonly sizes = PRODUCT_SIZES;
   readonly colors = PRODUCT_COLORS;
   readonly statuses = ORDER_STATUSES;
+  readonly formatColor = formatProductColor;
   readonly products = signal<Product[]>([]);
   readonly orders = signal<Order[]>([]);
   readonly editingProductId = signal<string | null>(null);
@@ -133,7 +136,7 @@ export class AdminDashboardPage {
       imageUrl: product.imageUrl,
       name: product.name,
       description: product.description,
-      size: product.size,
+      size: toProductSizeValue(product.size),
       color: product.color,
       price: product.price,
       stock: product.stock,

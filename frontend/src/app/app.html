@@ -3,7 +3,12 @@
   <nav>
     <a routerLink="/products" routerLinkActive="active">Catálogo</a>
     @if (authStore.isAuthenticated()) {
-      <a routerLink="/cart" routerLinkActive="active">Carrito {{ cartStore.count() }}</a>
+      <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+        Carrito
+        @if (cartStore.uniqueItemCount() > 0) {
+          <span class="cart-badge">{{ cartStore.uniqueItemCount() }}</span>
+        }
+      </a>
       <a routerLink="/orders" routerLinkActive="active">Órdenes</a>
     }
     @if (authStore.isAdmin()) {

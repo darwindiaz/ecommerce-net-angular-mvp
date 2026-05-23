@@ -5,7 +5,7 @@ import { CartApiService } from '../../core/services/cart-api.service';
 import { ProductsApiService } from '../../core/services/products-api.service';
 import { AuthStore } from '../../core/store/auth.store';
 import { CartStore } from '../../core/store/cart.store';
-import { Product } from '../../shared/models/product.models';
+import { Product, formatProductColor, formatProductSize } from '../../shared/models/product.models';
 
 @Component({
   selector: 'app-product-detail-page',
@@ -19,8 +19,8 @@ import { Product } from '../../shared/models/product.models';
           <p>{{ product.description }}</p>
           <dl>
             <dt>Código</dt><dd>{{ product.code }}</dd>
-            <dt>Talla</dt><dd>{{ product.size }}</dd>
-            <dt>Color</dt><dd>{{ product.color }}</dd>
+            <dt>Talla</dt><dd>{{ formatSize(product.size) }}</dd>
+            <dt>Color</dt><dd>{{ formatColor(product.color) }}</dd>
             <dt>Stock</dt><dd>{{ product.stock }}</dd>
             <dt>Precio</dt><dd>{{ product.price | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</dd>
           </dl>
@@ -43,6 +43,8 @@ export class ProductDetailPage {
   private readonly cartApi = inject(CartApiService);
   private readonly cartStore = inject(CartStore);
 
+  readonly formatColor = formatProductColor;
+  readonly formatSize = formatProductSize;
   readonly product = signal<Product | null>(null);
 
   constructor() {
