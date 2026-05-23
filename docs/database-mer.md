@@ -1,5 +1,9 @@
 # Modelo Entidad Relacion
 
+## Diagrama visual
+
+![Diagrama del modelo entidad relacion](assets/database-mer.png)
+
 ## Entidades
 
 ### User

@@ -17,6 +17,7 @@ public class AuthService(
         ValidateRegisterRequest(request);
 
         var email = NormalizeEmail(request.Email);
+        var age = CalculateAge(request.BirthDate);
 
         if (await userRepository.ExistsByEmailAsync(email, cancellationToken))
         {
@@ -28,7 +29,7 @@ public class AuthService(
             Id = Guid.NewGuid(),
             Names = request.Names.Trim(),
             LastNames = request.LastNames.Trim(),
-            Age = request.Age,
+            Age = age,
             BirthDate = request.BirthDate,
             Country = request.Country.Trim(),
             Department = request.Department.Trim(),
@@ -88,11 +89,6 @@ public class AuthService(
             throw new ArgumentException("Password must have at least 8 characters.", nameof(request));
         }
 
-        if (request.Age <= 0)
-        {
-            throw new ArgumentException("Age must be greater than zero.", nameof(request));
-        }
-
         if (request.BirthDate > DateOnly.FromDateTime(DateTime.UtcNow))
         {
             throw new ArgumentException("Birth date cannot be in the future.", nameof(request));
@@ -113,5 +109,13 @@ public class AuthService(
     private static string NormalizeEmail(string email)
     {
         return email.Trim().ToLowerInvariant();
+    }
+
+    private static int CalculateAge(DateOnly birthDate)
+    {
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+        var age = today.Year - birthDate.Year;
+
+        return birthDate > today.AddYears(-age) ? age - 1 : age;
     }
 }

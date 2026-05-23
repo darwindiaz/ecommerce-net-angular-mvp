@@ -11,6 +11,7 @@ export class CartStore {
   readonly items = computed(() => this.cart()?.items ?? []);
   readonly total = computed(() => this.cart()?.total ?? 0);
   readonly count = computed(() => this.items().reduce((sum, item) => sum + item.quantity, 0));
+  readonly uniqueItemCount = computed(() => this.items().length);
 
   load(): void {
     this.cartApi.get().subscribe((cart) => this.cart.set(cart));

@@ -13,6 +13,8 @@ import {
   ProductColor,
   ProductFilters,
   ProductSize,
+  formatProductColor,
+  formatProductSize,
 } from '../../shared/models/product.models';
 
 @Component({
@@ -34,7 +36,7 @@ import {
         <select formControlName="color">
           <option value="">Color</option>
           @for (color of colors; track color) {
-            <option [value]="color">{{ color }}</option>
+            <option [value]="color">{{ formatColor(color) }}</option>
           }
         </select>
         <button type="submit">Filtrar</button>
@@ -51,11 +53,13 @@ import {
           <img [src]="product.imageUrl" [alt]="product.name" />
           <div>
             <a [routerLink]="['/products', product.id]">{{ product.name }}</a>
-            <p>{{ product.code }} · Talla {{ product.size }} · {{ product.color }}</p>
-            <strong>{{ product.price | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</strong>
-            <span [class.available]="product.isAvailable">
-              {{ product.isAvailable ? 'Disponible' : 'Agotado' }}
-            </span>
+            <p>Talla: {{ formatSize(product.size) }} · Color: {{ formatColor(product.color) }}</p>
+            <strong>Precio: {{ product.price | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</strong>
+            <div>
+              <span [class.available]="product.isAvailable">
+                {{ product.isAvailable ? 'Disponible' : 'Agotado' }}
+              </span>
+            </div>
           </div>
           <div class="row-actions">
             <input #qty type="number" min="1" [max]="product.stock" value="1" />
@@ -80,6 +84,8 @@ export class ProductsPage {
 
   readonly sizes = PRODUCT_SIZES;
   readonly colors = PRODUCT_COLORS;
+  readonly formatColor = formatProductColor;
+  readonly formatSize = formatProductSize;
   readonly products = signal<Product[]>([]);
   readonly error = signal('');
   readonly filtersForm = this.formBuilder.nonNullable.group({

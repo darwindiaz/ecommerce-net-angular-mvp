@@ -139,6 +139,15 @@ El sistema maneja dos roles:
 
 Los usuarios cliente se crean desde la pantalla de registro.
 
+Para demo local en entorno `Development`, el sistema crea un administrador por defecto:
+
+```text
+Email: admin@admin.local
+Password: Admin123*
+```
+
+Estas credenciales son solo para ejecucion local y demostracion del MVP.
+
 ## Notas tecnicas
 
 - La autenticacion usa JWT.

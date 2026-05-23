@@ -111,10 +111,11 @@ Resultado esperado:
 | ORDER-01 | Ordenes | Finalizar compra | Con productos en carrito, ejecutar checkout. | Se crea una orden en estado `InProcess` y el carrito queda limpio. | Pendiente |
 | ORDER-02 | Ordenes | Listar ordenes cliente | Abrir pantalla de ordenes con usuario cliente. | Se muestran las ordenes del usuario autenticado. | Pendiente |
 | ADMIN-01 | Administracion | Bloquear acceso sin rol | Intentar entrar al panel admin sin rol administrador. | El sistema redirige a catalogo o impide el acceso. | Pendiente |
-| ADMIN-02 | Administracion | Crear producto | Ingresar como admin, completar formulario de producto y guardar. | Producto creado y visible en el listado. | Pendiente |
-| ADMIN-03 | Administracion | Editar producto | Seleccionar producto, modificar datos y guardar. | Producto actualizado correctamente. | Pendiente |
-| ADMIN-04 | Administracion | Eliminar producto | Eliminar un producto desde admin. | Producto eliminado del listado. | Pendiente |
-| ADMIN-05 | Administracion | Actualizar estado de orden | Cambiar estado de una orden desde admin. | Orden actualizada con el nuevo estado. | Pendiente |
+| ADMIN-02 | Administracion | Login administrador | Iniciar sesion con `admin@admin.local` y `Admin123*`. | Usuario autenticado con acceso al panel administrador. | Pendiente |
+| ADMIN-03 | Administracion | Crear producto | Ingresar como admin, completar formulario de producto y guardar. | Producto creado y visible en el listado. | Pendiente |
+| ADMIN-04 | Administracion | Editar producto | Seleccionar producto, modificar datos y guardar. | Producto actualizado correctamente. | Pendiente |
+| ADMIN-05 | Administracion | Eliminar producto | Eliminar un producto desde admin. | Producto eliminado del listado. | Pendiente |
+| ADMIN-06 | Administracion | Actualizar estado de orden | Cambiar estado de una orden desde admin. | Orden actualizada con el nuevo estado. | Pendiente |
 
 ## Pruebas de integracion frontend-backend
 
@@ -125,6 +126,7 @@ Validar los siguientes puntos durante la navegacion local:
 - El token JWT se envia en endpoints protegidos.
 - Las rutas protegidas redirigen si no hay sesion activa.
 - El rol `Admin` permite acceder a funcionalidades administrativas.
+- Las credenciales demo `admin@admin.local` / `Admin123*` permiten validar el panel administrador en local.
 - El carrito persiste en backend por usuario autenticado.
 - El checkout crea una orden y descuenta stock.
 - Las ordenes se consultan desde SQLite local.

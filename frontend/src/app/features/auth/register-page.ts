@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthApiService } from '../../core/services/auth-api.service';
@@ -13,8 +14,8 @@ import { AuthStore } from '../../core/store/auth.store';
       <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid two-columns">
         <label>Nombres <input formControlName="names" /></label>
         <label>Apellidos <input formControlName="lastNames" /></label>
-        <label>Edad <input type="number" formControlName="age" /></label>
         <label>Fecha nacimiento <input type="date" formControlName="birthDate" /></label>
+        <label>Edad <input type="number" formControlName="age" readonly /></label>
         <label>País <input formControlName="country" /></label>
         <label>Departamento <input formControlName="department" /></label>
         <label>Ciudad <input formControlName="city" /></label>
@@ -52,7 +53,17 @@ export class RegisterPage {
     password: ['', [Validators.required, Validators.minLength(8)]],
   });
 
+  constructor() {
+    this.form.controls.birthDate.valueChanges.pipe(takeUntilDestroyed()).subscribe((birthDate) => {
+      this.form.controls.age.setValue(this.calculateAge(birthDate), { emitEvent: false });
+    });
+  }
+
   submit(): void {
+    this.form.controls.age.setValue(this.calculateAge(this.form.controls.birthDate.value), {
+      emitEvent: false,
+    });
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -66,5 +77,24 @@ export class RegisterPage {
       },
       error: () => this.error.set('No fue posible registrar el usuario.'),
     });
+  }
+
+  private calculateAge(birthDateValue: string): number {
+    if (!birthDateValue) {
+      return 0;
+    }
+
+    const birthDate = new Date(`${birthDateValue}T00:00:00`);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const hasBirthdayPassed =
+      today.getMonth() > birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+    if (!hasBirthdayPassed) {
+      age -= 1;
+    }
+
+    return Math.max(0, age);
   }
 }
