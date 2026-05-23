@@ -51,11 +51,13 @@ import {
           <img [src]="product.imageUrl" [alt]="product.name" />
           <div>
             <a [routerLink]="['/products', product.id]">{{ product.name }}</a>
-            <p>{{ product.code }} · Talla {{ product.size }} · {{ product.color }}</p>
-            <strong>{{ product.price | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</strong>
-            <span [class.available]="product.isAvailable">
-              {{ product.isAvailable ? 'Disponible' : 'Agotado' }}
-            </span>
+            <p>Talla: {{ product.size }} · Color: {{ product.color }}</p>
+            <strong>Precio: {{ product.price | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</strong>
+            <div>
+              <span [class.available]="product.isAvailable">
+                {{ product.isAvailable ? 'Disponible' : 'Agotado' }}
+              </span>
+            </div>
           </div>
           <div class="row-actions">
             <input #qty type="number" min="1" [max]="product.stock" value="1" />
