@@ -1,5 +1,9 @@
 # Arquitectura
 
+## Diagrama visual
+
+![Diagrama de arquitectura](assets/architecture.png)
+
 ## Decision principal
 
 El proyecto usara ASP.NET Core Web API con controllers estilo MVC, pero la logica de negocio no vivira en los controllers.
